@@ -9,3 +9,7 @@ Or:
 ```
 java -jar build/lib/spring-rest-service.jar
 ```
+
+
+Refs:
+http://spring.io/guides/gs/spring-boot/

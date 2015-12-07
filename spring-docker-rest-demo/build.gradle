@@ -32,19 +32,20 @@ configurations {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
-    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
     testCompile("junit:junit")
 }
 
 task buildDocker(type: Docker, dependsOn: build) {
-  push = false
-  applicationName = jar.baseName
-  dockerfile = file('src/main/docker/Dockerfile')
-  doFirst {
-    copy {
-      from jar
-      into stageDir
+    push = false
+    applicationName = jar.baseName
+    dockerfile = file('src/main/docker/Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
     }
-  }
 }
