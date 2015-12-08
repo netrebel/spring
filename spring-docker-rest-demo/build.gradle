@@ -8,14 +8,14 @@ buildscript {
     }
 }
 
-apply plugin: 'war'
+apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'docker'
 
 group = 'miguelatdocker'
 
-war {
+jar {
     baseName = 'spring-rest-service'
     version = '0.1.0'
 }
@@ -39,11 +39,11 @@ dependencies {
 
 task buildDocker(type: Docker, dependsOn: build) {
     push = false
-    applicationName = war.baseName
+    applicationName = jar.baseName
     dockerfile = file('src/main/docker/Dockerfile')
     doFirst {
         copy {
-            from war
+            from jar
             into stageDir
         }
     }
